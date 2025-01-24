@@ -1,0 +1,127 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { Star } from "lucide-react"
+import QuadrantDial from "../components/QuadrantDial"
+import AllServicesDial from "../components/AllServicesDial"
+import Navbar from "../components/Navbar"
+import Sidebar from "../components/Sidebar"
+import TranslateButton from "../components/TranslateButton"
+import { Button } from "@/components/ui/button"
+
+export default function Home() {
+  const [selectedDial, setSelectedDial] = useState<"forYou" | "allServices">("forYou")
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [isSpanish, setIsSpanish] = useState(false)
+  const [forYouSelection, setForYouSelection] = useState<string | null>(null)
+  const [allServicesSelection, setAllServicesSelection] = useState<string | null>(null)
+  const router = useRouter()
+
+  const handleQuadrantSelect = (quadrant: string) => {
+    if (selectedDial === "forYou") {
+      setForYouSelection(quadrant)
+    } else {
+      setAllServicesSelection(quadrant)
+    }
+  }
+
+  const handleGoToServices = () => {
+    setSelectedDial("allServices")
+  }
+
+  const handleFindInfo = () => {
+    if (allServicesSelection) {
+      const route = allServicesSelection.toLowerCase().replace(/\s+/g, "-").replace(/[()&]/g, "")
+      router.push(`/landing-${route}?forYou=${forYouSelection || "All"}&allServices=${allServicesSelection}`)
+    }
+  }
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen)
+  }
+
+  const toggleLanguage = () => {
+    setIsSpanish(!isSpanish)
+  }
+
+  const goToFavorites = () => {
+    router.push("/favorites")
+  }
+
+  useEffect(() => {
+    setForYouSelection(null)
+    setAllServicesSelection(null)
+  }, [selectedDial])
+
+  return (
+    <div className="flex flex-col h-screen bg-navy-blue text-gold">
+      <header className="bg-gold text-navy-blue p-2 flex justify-between items-center">
+        <h1 className="text-lg font-bold">BigBurgh</h1>
+        <div className="flex items-center space-x-2">
+          <TranslateButton isSpanish={isSpanish} toggleLanguage={toggleLanguage} />
+          <Button
+            onClick={goToFavorites}
+            variant="ghost"
+            size="icon"
+            className="text-navy-blue hover:text-blue-800 p-1"
+            aria-label="Favorites"
+          >
+            <Star className="h-4 w-4" />
+          </Button>
+          <Navbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+        </div>
+      </header>
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <main className="flex-grow flex flex-col items-center justify-between p-2">
+        <div className="w-full max-w-xs">
+          <div className="flex justify-center mb-2">
+            <Button
+              onClick={() => setSelectedDial("forYou")}
+              variant={selectedDial === "forYou" ? "default" : "outline"}
+              className={`text-xs py-1 px-2 rounded-tl-md rounded-br-md ${
+                selectedDial === "forYou" ? "bg-gold text-navy-blue font-bold" : "bg-navy-blue text-gold"
+              } border-2 border-b-0 border-r-0 border-gold`}
+            >
+              {isSpanish ? "Para Ti" : "For You"}
+            </Button>
+            <Button
+              onClick={() => setSelectedDial("allServices")}
+              variant={selectedDial === "allServices" ? "default" : "outline"}
+              className={`text-xs py-1 px-2 rounded-tr-md rounded-bl-md ${
+                selectedDial === "allServices" ? "bg-gold text-navy-blue font-bold" : "bg-navy-blue text-gold"
+              } border-2 border-b-0 border-l-0 border-gold`}
+            >
+              {isSpanish ? "Todos los Servicios" : "All Services"}
+            </Button>
+          </div>
+          <div
+            className="aspect-square relative bg-navy-blue border-2 border-t-0 border-gold rounded-b-md overflow-hidden"
+            style={{ marginTop: "-2px" }}
+          >
+            {selectedDial === "forYou" ? (
+              <QuadrantDial
+                onSelectQuadrant={handleQuadrantSelect}
+                onGoToServices={handleGoToServices}
+                buttonRadius={30}
+                showWhiteBorders={true}
+              />
+            ) : (
+              <AllServicesDial
+                onSelectQuadrant={handleQuadrantSelect}
+                onFindInfo={handleFindInfo}
+                buttonRadius={30}
+                showWhiteBorders={true}
+              />
+            )}
+          </div>
+        </div>
+        <div className="mt-2 flex justify-center space-x-2">
+          <Button className="bg-gold text-navy-blue hover:bg-yellow-400 text-xs py-1 px-2">Live Help</Button>
+          <Button className="bg-gold text-navy-blue hover:bg-yellow-400 text-xs py-1 px-2">Contact Us</Button>
+        </div>
+      </main>
+    </div>
+  )
+}
+
