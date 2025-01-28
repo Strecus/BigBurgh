@@ -3,7 +3,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 
 interface QuadrantDialProps {
-  onSelectQuadrant: (quadrant: string) => void
+  onSelectQuadrant: (quadrant: string, group: string) => void
   onGoToServices: () => void
   buttonRadius?: number
   showWhiteBorders?: boolean
@@ -17,9 +17,10 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
   showWhiteBorders = false,
   language,
 }) => {
-  const [selectedQuadrant, setSelectedQuadrant] = useState<string | null>(null)
+  
   const [pointerAngle, setPointerAngle] = useState(0)
   const [activeSegment, setActiveSegment] = useState<string | null>(null)
+  const [activeSegmentGroup, setActiveSegmentGroup] = useState<string | null>(null)
 
   const segments = [
     {
@@ -80,7 +81,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
       fontSize: 20
     },
     {
-      name: "35-59",
+      name: "35+",
       path: "M 103 103 L 156 48 A 75 75 0 0 1 178 103 L 103 103 Z",
       angle: 67,
       textX: 145,
@@ -88,7 +89,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
       group: "female",
     },
     {
-      name: "18 and below",
+      name: "18-34",
       path: "M 103 103 L 103 28 A 75 75 0 0 1 156 48 L 103 103 Z",
       angle: 22,
       qAngle: 68,
@@ -139,12 +140,14 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     }
   ]
 
-  const handleSegmentClick = (segment: string) => {
-    const selectedSegment = segments.find((s) => s.name === segment)
+  const handleSegmentClick = (segment: string, group: string) => {
+    console.log("Clicked Segment:", segment, "Group:", group); // Debugging line
+    const selectedSegment = segments.find((s) => s.name === segment && s.group === group);
     if (selectedSegment && !selectedSegment.isBackground) {
-      setSelectedQuadrant(segment)
+
       setActiveSegment(segment)
-      onSelectQuadrant(segment)
+      setActiveSegmentGroup(group)
+      onSelectQuadrant(segment, group)
     }
   }
 
@@ -152,7 +155,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     let animationFrameId: number
 
     const animatePointer = () => {
-      const targetAngle = segments.find((s) => s.name === selectedQuadrant)?.angle || 0
+      const targetAngle = segments.find((s) => s.name === activeSegment && s.group === activeSegmentGroup )?.angle || 0
       
       // Calculate the shortest path to the target angle
       let diff = targetAngle - pointerAngle
@@ -188,17 +191,17 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
         cancelAnimationFrame(animationFrameId)
       }
     }
-  }, [selectedQuadrant, segments, pointerAngle])
+  }, [ segments, pointerAngle])
 
   return (
     <div className="relative w-full h-full">
       <svg viewBox="0 0 204 204" className="w-full h-full">
         <rect x="0" y="0" width="204" height="204" fill="#EDEEF0" />
         {segments.map((segment, index) => (
-          <g key={index} onClick={segment.isBackground ? undefined : () => handleSegmentClick(segment.name)}>
+          <g key={index} onClick={segment.isBackground ? undefined : () => handleSegmentClick(segment.name, segment.group)}>
             <path
               d={segment.path}
-              fill={segment.isBackground ? "#EDEEF8" : (activeSegment === segment.name ? "#0000FF" : "#FFFFFF")}
+              fill={segment.isBackground ? "#EDEEF8" : (activeSegment === segment.name && activeSegmentGroup === segment.group) ? "#0000FF" : "#FFFFFF"}
               stroke="#000000"
               strokeWidth={showWhiteBorders ? "1" : "3"}
               cursor={segment.isBackground ? "default" : "pointer"}
@@ -207,7 +210,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
               x={segment.textX}
               y={segment.textY}
               textAnchor="middle"
-              fill="black"
+              fill={activeSegment === segment.name && segment.group === activeSegmentGroup ? "gold" : "black"}
               fontSize={segment.fontSize ? segment.fontSize : "6"}
               fontFamily="Arial"
               fontWeight={segment.isBold ? "bold" : "normal"}
@@ -222,7 +225,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
             fill="#FFD700"
           />
         </g>
-        {selectedQuadrant ? (
+        {activeSegment ? (
           <g onClick={onGoToServices} cursor="pointer">
             <circle cx="102" cy="102" r="15" fill="#FFD700" opacity="1" />
             <text
