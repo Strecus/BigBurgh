@@ -16,6 +16,7 @@ export default function Home() {
   const [isSpanish, setIsSpanish] = useState(false)
   const [forYouSelection, setForYouSelection] = useState<string | null>(null)
   const [allServicesSelection, setAllServicesSelection] = useState<string | null>(null)
+  const [language, setLanguage] = useState<"en" | "es">("en")
   const router = useRouter()
 
   const handleQuadrantSelect = (quadrant: string) => {
@@ -42,7 +43,7 @@ export default function Home() {
   }
 
   const toggleLanguage = () => {
-    setIsSpanish(!isSpanish)
+    setLanguage((prev) => (prev === "en" ? "es" : "en"))
   }
 
   const goToFavorites = () => {
@@ -69,7 +70,7 @@ export default function Home() {
           >
             <Star className="h-4 w-4 hover:text-yellow-500" />
           </Button>
-          <Navbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+          <Navbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} language={language} />
         </div>
       </header>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
@@ -83,7 +84,7 @@ export default function Home() {
                 selectedDial === "forYou" ? "bg-gold text-navy-blue font-bold border-2 border-gold" : "bg-navy-blue text-gold border-2 border-b-0 border-r-0 border-gold"
               }`}
             >
-              {isSpanish ? "Para Ti" : "For You"}
+              {language === "es" ? "Para Ti" : "For You"}
             </Button>
             <Button
               onClick={() => setSelectedDial("allServices")}
@@ -92,7 +93,7 @@ export default function Home() {
                 selectedDial === "allServices" ? "bg-gold text-navy-blue font-bold border-2 border-gold" : "bg-navy-blue text-gold border-2 border-b-0 border-l-0 border-gold"
               }`}
             >
-              {isSpanish ? "Todos los Servicios" : "All Services"}
+              {language === "es" ? "Todos los Servicios" : "All Services"}
             </Button>
           </div>
           <div
@@ -105,6 +106,7 @@ export default function Home() {
                 onGoToServices={handleGoToServices}
                 buttonRadius={30}
                 showWhiteBorders={true}
+                language={language}
               />
             ) : (
               <AllServicesDial
@@ -117,8 +119,12 @@ export default function Home() {
           </div>
         </div>
         <div className="mt-2 flex justify-center space-x-2">
-          <Button className="bg-gold text-navy-blue hover:bg-yellow-400 text-xs py-1 px-2">Live Help</Button>
-          <Button className="bg-gold text-navy-blue hover:bg-yellow-400 text-xs py-1 px-2">Contact Us</Button>
+          <Button className="bg-gold text-navy-blue hover:bg-yellow-400 text-xs py-1 px-2">
+            {language === "es" ? "Ayuda en Vivo" : "Live Help"}
+          </Button>
+          <Button className="bg-gold text-navy-blue hover:bg-yellow-400 text-xs py-1 px-2">
+            {language === "es" ? "Contáctenos" : "Contact Us"}
+          </Button>
         </div>
       </main>
     </div>

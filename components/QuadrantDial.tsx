@@ -7,6 +7,7 @@ interface QuadrantDialProps {
   onGoToServices: () => void
   buttonRadius?: number
   showWhiteBorders?: boolean
+  language?: "en" | "es"
 }
 
 const QuadrantDial: React.FC<QuadrantDialProps> = ({
@@ -14,6 +15,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
   onGoToServices,
   buttonRadius = 40,
   showWhiteBorders = false,
+  language,
 }) => {
   const [selectedQuadrant, setSelectedQuadrant] = useState<string | null>(null)
   const [pointerAngle, setPointerAngle] = useState(0)
@@ -27,7 +29,8 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
       textY: 25,
       group: "male",
       isBackground: true,
-      fontSize: 15
+      fontSize: 15,
+      text: { en: "Male", es: "Masculino" }
     },
     {
       name: "M",
@@ -64,7 +67,8 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
       textY: 25,
       group: "female",
       isBackground: true,
-      fontSize: 15
+      fontSize: 15,
+      text: { en: "Female", es: "Femenino" }
     },
     {
       name: "F",
@@ -131,6 +135,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
       textX: 164,
       textY: 134,
       group: "other",
+      text: { en: "Families", es: "Familias" }
     }
   ]
 
@@ -207,7 +212,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
               fontFamily="Arial"
               fontWeight={segment.isBold ? "bold" : "normal"}
             >
-              {segment.name}
+              {segment.text ? segment.text[language || "en"] : segment.name}
             </text>
           </g>
         ))}
