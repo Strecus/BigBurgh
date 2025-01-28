@@ -55,8 +55,8 @@ export default function Home() {
   }, [selectedDial])
 
   return (
-    <div className="flex flex-col h-screen bg-navy-blue text-gold">
-      <header className="bg-gold text-navy-blue p-2 flex justify-between items-center">
+    <div className="flex flex-col h-screen" style={{ backgroundColor: "#EDEEF0", color: "gold" }}>
+      <header className="bg-white text-navy-blue p-2 flex justify-between items-center">
         <h1 className="text-lg font-bold">BigBurgh</h1>
         <div className="flex items-center space-x-2">
           <TranslateButton isSpanish={isSpanish} toggleLanguage={toggleLanguage} />
@@ -64,10 +64,10 @@ export default function Home() {
             onClick={goToFavorites}
             variant="ghost"
             size="icon"
-            className="text-navy-blue hover:text-blue-800 p-1"
+            className="text-navy-blue hover:text-blue-800 p-1 hover:text-yellow-500"
             aria-label="Favorites"
           >
-            <Star className="h-4 w-4" />
+            <Star className="h-4 w-4 hover:text-yellow-500" />
           </Button>
           <Navbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
         </div>
@@ -80,8 +80,8 @@ export default function Home() {
               onClick={() => setSelectedDial("forYou")}
               variant={selectedDial === "forYou" ? "default" : "outline"}
               className={`text-xs py-1 px-2 rounded-tl-md rounded-br-md ${
-                selectedDial === "forYou" ? "bg-gold text-navy-blue font-bold" : "bg-navy-blue text-gold"
-              } border-2 border-b-0 border-r-0 border-gold`}
+                selectedDial === "forYou" ? "bg-gold text-navy-blue font-bold border-2 border-gold" : "bg-navy-blue text-gold border-2 border-b-0 border-r-0 border-gold"
+              }`}
             >
               {isSpanish ? "Para Ti" : "For You"}
             </Button>
@@ -89,8 +89,8 @@ export default function Home() {
               onClick={() => setSelectedDial("allServices")}
               variant={selectedDial === "allServices" ? "default" : "outline"}
               className={`text-xs py-1 px-2 rounded-tr-md rounded-bl-md ${
-                selectedDial === "allServices" ? "bg-gold text-navy-blue font-bold" : "bg-navy-blue text-gold"
-              } border-2 border-b-0 border-l-0 border-gold`}
+                selectedDial === "allServices" ? "bg-gold text-navy-blue font-bold border-2 border-gold" : "bg-navy-blue text-gold border-2 border-b-0 border-l-0 border-gold"
+              }`}
             >
               {isSpanish ? "Todos los Servicios" : "All Services"}
             </Button>

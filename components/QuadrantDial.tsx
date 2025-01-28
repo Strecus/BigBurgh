@@ -28,13 +28,13 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
       group: "male",
       isBackground: true,
       fontSize: 15
-
     },
     {
       name: "M",
       textX: 25,
       textY: 45,
       group: "male",
+      isBackground:true,
       isBold: true,
       fontSize: 20
     },
@@ -42,7 +42,6 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
       name: "35+",
       path: "M 101 103 L 26 103 A 75 75 0 0 1 48 48 L 103 103 Z",
       angle: 288,
-      qAngle: 150,
       textX: 55,
       textY: 85,
       isBackground: false,
@@ -59,12 +58,22 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
 
 
     {
-      name: "F",
+      name: "Female",
       path: "M 204 0 L 103 0 L 103 28 A 75 75 0 0 1 178 103 L 204 103 L 204 0 Z",
-      textX: 179,
+      textX: 175,
       textY: 25,
-      isBackground: true,
       group: "female",
+      isBackground: true,
+      fontSize: 15
+    },
+    {
+      name: "F",
+      textX: 179,
+      textY: 45,
+      group: "female",
+      isBackground: true,
+      isBold: true,
+      fontSize: 20
     },
     {
       name: "35-59",
@@ -139,9 +148,28 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
 
     const animatePointer = () => {
       const targetAngle = segments.find((s) => s.name === selectedQuadrant)?.angle || 0
-      const diff = targetAngle - pointerAngle
-      if (Math.abs(diff) > 1) {
-        setPointerAngle((prevAngle) => prevAngle + diff * 0.1)
+      
+      // Calculate the shortest path to the target angle
+      let diff = targetAngle - pointerAngle
+      
+      // Adjust the difference to take the shortest path
+      if (diff > 180) {
+        diff -= 360
+      } else if (diff < -180) {
+        diff += 360
+      }
+
+      // Smoother animation with smaller step size
+      const step = diff * 0.08  // Reduced from 0.1 to 0.08 for smoother motion
+
+      if (Math.abs(diff) > 0.5) {  // Reduced threshold for smoother finish
+        setPointerAngle((prevAngle) => {
+          let newAngle = prevAngle + step
+          // Normalize angle to stay within 0-360 range
+          if (newAngle < 0) newAngle += 360
+          if (newAngle >= 360) newAngle -= 360
+          return newAngle
+        })
         animationFrameId = requestAnimationFrame(animatePointer)
       } else {
         setPointerAngle(targetAngle)
@@ -160,13 +188,13 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
   return (
     <div className="relative w-full h-full">
       <svg viewBox="0 0 204 204" className="w-full h-full">
-        <rect x="0" y="0" width="204" height="204" fill="#FFFFFF" />
+        <rect x="0" y="0" width="204" height="204" fill="#EDEEF0" />
         {segments.map((segment, index) => (
           <g key={index} onClick={segment.isBackground ? undefined : () => handleSegmentClick(segment.name)}>
             <path
               d={segment.path}
-              fill={segment.isBackground ? "#CCCCCC" : (activeSegment === segment.name ? "#000000" : "#AAAAAA")}
-              stroke={showWhiteBorders ? "#000000" : "#000000"}
+              fill={segment.isBackground ? "#EDEEF8" : (activeSegment === segment.name ? "#0000FF" : "#FFFFFF")}
+              stroke="#000000"
               strokeWidth={showWhiteBorders ? "1" : "3"}
               cursor={segment.isBackground ? "default" : "pointer"}
             />
@@ -183,27 +211,35 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
             </text>
           </g>
         ))}
-        <circle cx="102" cy="102" r="15" fill="black" stroke="#000000" strokeWidth="2" />
         <g transform={`rotate(${pointerAngle} 102 102)`}>
-          <path d="M 98 87 L 102 82 L 104 87 Z" fill="#000000" stroke="#000000" strokeWidth="2" />
-          
+          <path 
+            d="M 98 90 L 102 81 L 106 90 Z" 
+            fill="#FFD700"
+          />
         </g>
-        {selectedQuadrant && (
+        {selectedQuadrant ? (
           <g onClick={onGoToServices} cursor="pointer">
-            <circle cx="102" cy="102" r="15" fill="black" opacity="1" />
+            <circle cx="102" cy="102" r="15" fill="#FFD700" opacity="1" />
             <text
               x="102"
               y="102"
               textAnchor="middle"
               dominantBaseline="middle"
-              fill="white"
+              fill="black"
               fontSize="4"
               fontWeight="bold"
             >
-              <tspan x="102" dy="-2">Go To</tspan>
-              <tspan x="102" dy="1.5em">Services</tspan>
+              <tspan x="102" dy="-2" fill="blue">Go To</tspan>
+              <tspan x="102" dy="1.5em" fill="blue">Services</tspan>
             </text>
           </g>
+        ) : (
+          <circle 
+            cx="102" 
+            cy="102" 
+            r="15" 
+            fill="#FFD700"
+          />
         )}
       </svg>
     </div>
