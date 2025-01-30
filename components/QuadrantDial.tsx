@@ -25,7 +25,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
   const segments = [
     {
       name: "Male",
-      path: "M 0 0 L 101 0 L 101 28 A 75 75 0 0 1 26 103 L 0 103 Z",
+      path: "M 0 0 L 101 0 L 101 28 A 75 75 0 0 1 26 101 L 0 101 Z",
       textX: 28,
       textY: 25,
       group: "male",
@@ -44,7 +44,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     },
     {
       name: "35+",
-      path: "M 101 103 L 26 103 A 75 75 0 0 1 48 48 L 103 103 Z",
+      path: "M 101 101 L 26 101 A 75 75 0 0 1 48 48 L 103 101 Z",
       angle: 288,
       textX: 55,
       textY: 85,
@@ -53,7 +53,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     },
     {
       name: "18-34",
-      path: "M 103 103 L 103 28 A 75 75 0 0 0 48 48 L 103 103 Z",
+      path: "M 101 101 L 101 28 A 75 75 0 0 0 48 48 L 103 103 Z",
       angle: 348,
       textX: 83,
       textY: 55,
@@ -63,7 +63,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
 
     {
       name: "Female",
-      path: "M 204 0 L 103 0 L 103 28 A 75 75 0 0 1 178 103 L 204 103 L 204 0 Z",
+      path: "M 204 0 L 103 0 L 103 28 A 75 75 0 0 1 178 101 L 204 101 L 204 0 Z",
       textX: 175,
       textY: 25,
       group: "female",
@@ -82,7 +82,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     },
     {
       name: "35+",
-      path: "M 103 103 L 156 48 A 75 75 0 0 1 178 103 L 103 103 Z",
+      path: "M 103 101 L 156 48 A 75 75 0 0 1 178 101 L 103 101 Z",
       angle: 67,
       textX: 145,
       textY: 85,
@@ -110,7 +110,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     },
     {
       name: "Immigrants & Refugees",
-      path: "M 102 102 L 30 170 A 96 96 0 0 0 98 196 L 102 102 Z",
+      path: "M 108 102 L 0 175 L 101 175 L 101 102",
       angle: 203,
       textX: 70,
       textY: 164,
