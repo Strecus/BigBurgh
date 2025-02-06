@@ -233,12 +233,13 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
               y="102"
               textAnchor="middle"
               dominantBaseline="middle"
+
               fill="black"
               fontSize="4"
               fontWeight="bold"
             >
-              <tspan x="102" dy="-2" fill="blue">Go To</tspan>
-              <tspan x="102" dy="1.5em" fill="blue">Services</tspan>
+              <tspan x="102" dy="-2" fill="#1663cf">Go To</tspan>
+              <tspan x="102" dy="1.5em" fill="#1663cf">Services</tspan>
             </text>
           </g>
         ) : (

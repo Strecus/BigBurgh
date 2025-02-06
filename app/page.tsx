@@ -81,7 +81,7 @@ export default function Home() {
               onClick={() => setSelectedDial("forYou")}
               variant={selectedDial === "forYou" ? "default" : "outline"}
               className={`text-xs py-1 px-2 rounded-tl-md rounded-br-md ${
-                selectedDial === "forYou" ? "bg-[#1663cf] text-gold font-bold border-2 border-gold" : "bg-navy-blue text-gold border-2 border-b-0 border-r-0 border-gold"
+                selectedDial === "forYou" ? "bg-gold text-[#1663cf] font-bold border-2 border-gold" : "bg-[#1663cf] text-gold border-2 border-b-0 border-r-0 border-gold"
               }`}
             >
               {language === "es" ? "Para Ti" : "For You"}
@@ -90,7 +90,7 @@ export default function Home() {
               onClick={() => setSelectedDial("allServices")}
               variant={selectedDial === "allServices" ? "default" : "outline"}
               className={`text-xs py-1 px-2 rounded-tr-md rounded-bl-md ${
-                selectedDial === "allServices" ? "bg-gold text-navy-blue font-bold border-2 border-gold" : "bg-navy-blue text-gold border-2 border-b-0 border-l-0 border-gold"
+                selectedDial === "allServices" ? "bg-gold text-[#1663cf] font-bold border-2 border-gold" : "bg-[#1663cf] text-gold border-2 border-b-0 border-l-0 border-gold"
               }`}
             >
               {language === "es" ? "Todos los Servicios" : "All Services"}
@@ -119,10 +119,10 @@ export default function Home() {
           </div>
         </div>
         <div className="mt-2 flex justify-center space-x-2">
-          <Button className="bg-gold text-navy-blue hover:bg-yellow-400 text-xs py-1 px-2">
+          <Button className="bg-gold text-[#1663cf] hover:bg-yellow-400 text-xs py-1 px-2">
             {language === "es" ? "Ayuda en Vivo" : "Live Help"}
           </Button>
-          <Button className="bg-gold text-navy-blue hover:bg-yellow-400 text-xs py-1 px-2">
+          <Button className="bg-gold text-[#1663cf] hover:bg-yellow-400 text-xs py-1 px-2">
             {language === "es" ? "Contáctenos" : "Contact Us"}
           </Button>
         </div>
