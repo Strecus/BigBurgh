@@ -24,7 +24,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleSidebar, isSidebarOpen, language 
       <NavigationMenu>
         <NavigationMenuList className="flex space-x-4">
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-black bg-navy-blue text-gold hover:bg-blue-800 text-xs py-1 px-2">
+            <NavigationMenuTrigger className="text-black bg-[#1663cf] text-gold hover:bg-blue-800 text-xs py-1 px-2">
               {language === "es" ? "Menú" : "Menu"}
             </NavigationMenuTrigger>
             <NavigationMenuContent>

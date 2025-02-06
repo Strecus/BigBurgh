@@ -12,7 +12,7 @@ const TranslateButton: React.FC<TranslateButtonProps> = ({ isSpanish, toggleLang
       onClick={toggleLanguage}
       variant="outline"
       size="sm"
-      className="bg-navy-blue text-gold hover:bg-blue-800 text-xs py-1 px-2"
+      className="bg-[#1663cf] text-gold hover:bg-blue-800 text-xs py-1 px-2"
     >
       {isSpanish ? "EN" : "ESP"}
     </Button>

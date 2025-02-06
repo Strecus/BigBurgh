@@ -102,7 +102,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
 
     {
       name: "Vets",
-      path: "M 103 103 L 0 103 0 170 L 102 102 Z",
+      path: "M 103 103 L 26 103 A 75 75 0 0 0 48 157 L 103 103 Z",
       angle: 250,
       textX: 40,
       textY: 134,
@@ -110,7 +110,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     },
     {
       name: "Immigrants & Refugees",
-      path: "M 108 102 L 0 175 L 101 175 L 101 102",
+      path: "M 101 103 L 48 157 A 75 75 0 0 0 101 178 L 101 103",
       angle: 203,
       textX: 70,
       textY: 164,
@@ -123,7 +123,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
 
     {
       name: "Seniors 60+",
-      path: "M 102 102 L 106 196 A 96 96 0 0 0 174 170 L 102 102 Z",
+      path: "M 104 102 L 104 178 A 75 75 0 0 0 156 158 L 104 102 Z",
       angle: 156,
       textX: 134,
       textY: 164,
@@ -131,7 +131,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     },
     {
       name: "Families",
-      path: "M 102 102 L 174 170 A 96 96 0 0 0 196 106 L 102 102 Z",
+      path: "M 101 103 L 178 103 A 75 75 0 0 1 156 158 L 101 103 Z",
       angle: 112,
       textX: 164,
       textY: 134,
@@ -201,7 +201,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
           <g key={index} onClick={segment.isBackground ? undefined : () => handleSegmentClick(segment.name, segment.group)}>
             <path
               d={segment.path}
-              fill={segment.isBackground ? "#EDEEF8" : (activeSegment === segment.name && activeSegmentGroup === segment.group) ? "#0000FF" : "#FFFFFF"}
+              fill={segment.isBackground ? "#EDEEF8" : (activeSegment === segment.name && activeSegmentGroup === segment.group) ? "#000000" : "#FFFFFF"}
               stroke="#000000"
               strokeWidth={showWhiteBorders ? "1" : "3"}
               cursor={segment.isBackground ? "default" : "pointer"}

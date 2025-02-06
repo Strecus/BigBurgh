@@ -57,7 +57,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen" style={{ backgroundColor: "#EDEEF0", color: "gold" }}>
-      <header className="bg-white text-navy-blue p-2 flex justify-between items-center">
+      <header className="bg-white text-[#1663cf] p-2 flex justify-between items-center">
         <h1 className="text-lg font-bold">BigBurgh</h1>
         <div className="flex items-center space-x-2">
           <TranslateButton isSpanish={isSpanish} toggleLanguage={toggleLanguage} />
@@ -81,7 +81,7 @@ export default function Home() {
               onClick={() => setSelectedDial("forYou")}
               variant={selectedDial === "forYou" ? "default" : "outline"}
               className={`text-xs py-1 px-2 rounded-tl-md rounded-br-md ${
-                selectedDial === "forYou" ? "bg-gold text-navy-blue font-bold border-2 border-gold" : "bg-navy-blue text-gold border-2 border-b-0 border-r-0 border-gold"
+                selectedDial === "forYou" ? "bg-[#1663cf] text-gold font-bold border-2 border-gold" : "bg-navy-blue text-gold border-2 border-b-0 border-r-0 border-gold"
               }`}
             >
               {language === "es" ? "Para Ti" : "For You"}
