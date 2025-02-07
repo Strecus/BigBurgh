@@ -17,6 +17,7 @@ export default function Home() {
   const [forYouSelection, setForYouSelection] = useState<string | null>(null)
   const [allServicesSelection, setAllServicesSelection] = useState<string | null>(null)
   const [language, setLanguage] = useState<"en" | "es">("en")
+  const [isSelected, setIsSelected] = useState(false)
   const router = useRouter()
 
   const handleQuadrantSelect = (quadrant: string) => {
@@ -28,6 +29,13 @@ export default function Home() {
   }
 
   const handleGoToServices = () => {
+    console.log("handleGoToServices called");
+    if (!forYouSelection) {
+      const userConfirmed = window.confirm("Warning! You are currently selecting nothing from the For You dial. Do you want to continue?");
+      if (!userConfirmed) {
+        return; // Cancel the action
+      }
+    }
     setSelectedDial("allServices")
   }
 
@@ -87,7 +95,7 @@ export default function Home() {
               {language === "es" ? "Para Ti" : "For You"}
             </Button>
             <Button
-              onClick={() => setSelectedDial("allServices")}
+              onClick={() => handleGoToServices()}
               variant={selectedDial === "allServices" ? "default" : "outline"}
               className={`text-xs py-1 px-2 rounded-tr-md rounded-bl-md ${
                 selectedDial === "allServices" ? "bg-gold text-[#1663cf] font-bold border-2 border-gold" : "bg-[#1663cf] text-gold border-2 border-b-0 border-l-0 border-gold"
@@ -107,6 +115,10 @@ export default function Home() {
                 buttonRadius={30}
                 showWhiteBorders={true}
                 language={language}
+                isSelected={isSelected}
+                setIsSelected={setIsSelected}
+                onLiveHelp={() => console.log("Live Help clicked")}
+                onContactUs={() => console.log("Contact Us clicked")}
               />
             ) : (
               <AllServicesDial
@@ -117,14 +129,6 @@ export default function Home() {
               />
             )}
           </div>
-        </div>
-        <div className="mt-2 flex justify-center space-x-2">
-          <Button className="bg-gold text-[#1663cf] hover:bg-yellow-400 text-xs py-1 px-2">
-            {language === "es" ? "Ayuda en Vivo" : "Live Help"}
-          </Button>
-          <Button className="bg-gold text-[#1663cf] hover:bg-yellow-400 text-xs py-1 px-2">
-            {language === "es" ? "Contáctenos" : "Contact Us"}
-          </Button>
         </div>
       </main>
     </div>

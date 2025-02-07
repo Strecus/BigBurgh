@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 interface AllServicesDialProps {
   onSelectQuadrant: (section: string) => void
   onFindInfo: () => void
+  onLiveHelp: () => void
+  onContactUs: () => void
   buttonRadius?: number
   showWhiteBorders?: boolean
 }
@@ -11,6 +13,8 @@ interface AllServicesDialProps {
 const AllServicesDial: React.FC<AllServicesDialProps> = ({
   onSelectQuadrant,
   onFindInfo,
+  onLiveHelp,
+  onContactUs,
   buttonRadius = 40,
   showWhiteBorders = false,
 }) => {
@@ -92,8 +96,8 @@ const AllServicesDial: React.FC<AllServicesDialProps> = ({
             <g key={index} onClick={() => handleSectionClick(section.name)}>
               <path
                 d={path}
-                fill="#FFD700"
-                stroke={showWhiteBorders ? "#FFFFFF" : "#000080"}
+                fill="#EDEEF0"
+                stroke="#000000"
                 strokeWidth={showWhiteBorders ? "1" : "3"}
                 cursor="pointer"
               />
@@ -101,40 +105,30 @@ const AllServicesDial: React.FC<AllServicesDialProps> = ({
                 x={section.textX}
                 y={section.textY}
                 textAnchor="middle"
-                fill="white"
-                fontSize="10"
-                pointerEvents="none"
+                fill={selectedSection === section.name ? "gold" : "black"}
+                fontSize="6"
+                fontFamily="Arial"
+                fontWeight={selectedSection === section.name ? "bold" : "normal"}
               >
-                {section.name.split(" ").map((word, i) => (
-                  <tspan key={i} x={section.textX} dy={i ? "1.2em" : "0"}>
-                    {word}
-                  </tspan>
-                ))}
+                {section.name}
               </text>
             </g>
           )
         })}
-        <circle cx="102" cy="102" r="15" fill="white" stroke="#000080" strokeWidth="2" />
         <g transform={`rotate(${pointerAngle} 102 102)`}>
-          <path d="M 102 102 L 98 82 L 102 78 L 106 82 Z" fill="#FFD700" stroke="#000080" strokeWidth="1" />
-          <rect x="101" y="82" width="2" height="20" fill="#FFD700" stroke="#000080" strokeWidth="1" />
+          <path 
+            d="M 98 90 L 102 81 L 106 90 Z" 
+            fill="#FFD700"
+          />
         </g>
-        {selectedSection && (
-          <g onClick={onFindInfo} cursor="pointer">
-            <circle cx="102" cy="102" r={buttonRadius} fill="#FF0000" opacity="0.8" />
-            <text
-              x="102"
-              y="102"
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fill="white"
-              fontSize="8"
-              fontWeight="bold"
-            >
-              Find Info
-            </text>
-          </g>
-        )}
+        <g onClick={onLiveHelp} cursor="pointer">
+          <rect x={0} y={184} width="102" height="20" fill="#FFD700" />
+          <text x={51} y={195} textAnchor="middle" fill="black" fontSize="8">Live Help</text>
+        </g>
+        <g onClick={onContactUs} cursor="pointer">
+          <rect x={102} y={184} width="102" height="20" fill="#FFD700" />
+          <text x={153} y={195} textAnchor="middle" fill="black" fontSize="8">Contact Us</text>
+        </g>
       </svg>
     </div>
   )
