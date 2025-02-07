@@ -1,66 +1,197 @@
+import { group } from "console"
 import type React from "react"
 import { useState, useEffect } from "react"
+import { text } from "stream/consumers"
 
-interface AllServicesDialProps {
-  onSelectQuadrant: (section: string) => void
-  onFindInfo: () => void
-  onLiveHelp: () => void
-  onContactUs: () => void
+interface AllServiceDialProps {
+  onSelectQuadrant: (quadrant: string, group: string) => void
+  onGoToServices: () => void
   buttonRadius?: number
   showWhiteBorders?: boolean
+  language?: "en" | "es"
+  onLiveHelp: () => void
+  onContactUs: () => void
 }
 
-const AllServicesDial: React.FC<AllServicesDialProps> = ({
+const AllServiceDial: React.FC<AllServiceDialProps> = ({
   onSelectQuadrant,
-  onFindInfo,
-  onLiveHelp,
-  onContactUs,
+  onGoToServices,
   buttonRadius = 40,
   showWhiteBorders = false,
+  language,
+  onLiveHelp,
+  onContactUs,
 }) => {
-  const [selectedSection, setSelectedSection] = useState<string | null>(null)
+  
   const [pointerAngle, setPointerAngle] = useState(0)
+  const [activeSegment, setActiveSegment] = useState<string | null>(null)
+  const [activeSegmentGroup, setActiveSegmentGroup] = useState<string | null>(null)
 
-  const sections = [
+  const segments = [
     {
-      name: "Basics",
-      angle: 0,
-      textX: 150,
-      textY: 70,
+      name: "Male",
+      path: "M 0 0 L 101 0 L 101 28 A 75 75 0 0 1 26 101 L 0 101 Z",
+      textX: 28,
+      textY: 25,
+      group: "male",
+      isBackground: true,
+      fontSize: 15,
+      text: { en: "Male", es: "Masculino" }
     },
     {
-      name: "Experts",
-      angle: 90,
-      textX: 150,
-      textY: 150,
+      name: "M",
+      textX: 25,
+      textY: 45,
+      group: "male",
+      isBackground:true,
+      isBold: true,
+      fontSize: 20
     },
     {
-      name: "Housing",
-      angle: 180,
+      name: "35+",
+      path: "M 101 101 L 26 101 A 75 75 0 0 1 48 48 L 103 101 Z",
+      angle: 288,
+      textX: 55,
+      textY: 85,
+      isBackground: false,
+      group: "male",
+    },
+    {
+      name: "18-34",
+      path: "M 101 101 L 101 28 A 75 75 0 0 0 48 48 L 103 103 Z",
+      angle: 348,
+      textX: 83,
+      textY: 55,
+      group: "male",
+    },
+
+
+    {
+      name: "Female",
+      path: "M 204 0 L 103 0 L 103 28 A 75 75 0 0 1 178 101 L 204 101 L 204 0 Z",
+      textX: 175,
+      textY: 25,
+      group: "female",
+      isBackground: true,
+      fontSize: 15,
+      text: { en: "Female", es: "Femenino" }
+    },
+    {
+      name: "F",
+      textX: 179,
+      textY: 45,
+      group: "female",
+      isBackground: true,
+      isBold: true,
+      fontSize: 20
+    },
+    {
+      name: "35+",
+      path: "M 103 101 L 156 48 A 75 75 0 0 1 178 101 L 103 101 Z",
+      angle: 67,
+      textX: 145,
+      textY: 85,
+      group: "female",
+    },
+    {
+      name: "18-34",
+      path: "M 103 103 L 103 28 A 75 75 0 0 1 156 48 L 103 103 Z",
+      angle: 22,
+      qAngle: 68,
+      textX: 120,
+      textY: 55,
+      group: "female",
+    },
+
+
+
+    {
+      name: "Vets",
+      path: "M 103 103 L 26 103 A 75 75 0 0 0 46 154 L 103 98 Z",
+      angle: 250,
       textX: 50,
-      textY: 150,
+      textY: 123,
+      group: "other",
     },
     {
-      name: "Health",
-      angle: 270,
-      textX: 50,
-      textY: 70,
+      name: "Immigrants",
+      path: "M 101 103 L 48 157 A 75 75 0 0 0 101 178 L 101 103",
+      angle: 203,
+      textX: 82,
+      textY: 147,
+      group: "other",
+      text: {en: "Immigrants",es: "Inmigrantes"}
     },
+    {
+      name: "& Refugees",
+      textX: 83,
+      textY: 153,
+      group: "other",
+      text: {en: "& Refugees", es: "y Refugiados"}
+
+    },
+
+
+
+
+
+    {
+      name: "Seniors",
+      path: "M 104 102 L 104 178 A 75 75 0 0 0 156 158 L 104 102 Z",
+      angle: 156,
+      textX: 123,
+      textY: 150,
+      group: "other",
+      text: { en: "Seniors", es: "Mayores" }
+    },
+    {
+      name: "Families",
+      path: "M 101 103 L 178 103 A 75 75 0 0 1 158 155 L 101 96 Z",
+      angle: 112,
+      textX: 150,
+      textY: 123,
+      group: "other",
+      text: { en: "Families", es: "Familias" }
+    }
   ]
 
-  const handleSectionClick = (sectionName: string) => {
-    setSelectedSection(sectionName)
-    onSelectQuadrant(sectionName)
+  const handleSegmentClick = (segment: string, group: string) => {
+    console.log("Clicked Segment:", segment, "Group:", group); // Debugging line
+    const selectedSegment = segments.find((s) => s.name === segment && s.group === group);
+    if (selectedSegment && !selectedSegment.isBackground) {
+      setActiveSegment(segment);
+      setActiveSegmentGroup(group);
+      onSelectQuadrant(segment, group);
+    }
   }
 
   useEffect(() => {
     let animationFrameId: number
 
     const animatePointer = () => {
-      const targetAngle = sections.find((s) => s.name === selectedSection)?.angle || 0
-      const diff = targetAngle - pointerAngle
-      if (Math.abs(diff) > 1) {
-        setPointerAngle((prevAngle) => prevAngle + diff * 0.1)
+      const targetAngle = segments.find((s) => s.name === activeSegment && s.group === activeSegmentGroup )?.angle || 0
+      
+      // Calculate the shortest path to the target angle
+      let diff = targetAngle - pointerAngle
+      
+      // Adjust the difference to take the shortest path
+      if (diff > 180) {
+        diff -= 360
+      } else if (diff < -180) {
+        diff += 360
+      }
+
+      // Smoother animation with smaller step size
+      const step = diff * 0.08  // Reduced from 0.1 to 0.08 for smoother motion
+
+      if (Math.abs(diff) > 0.5) {  // Reduced threshold for smoother finish
+        setPointerAngle((prevAngle) => {
+          let newAngle = prevAngle + step
+          // Normalize angle to stay within 0-360 range
+          if (newAngle < 0) newAngle += 360
+          if (newAngle >= 360) newAngle -= 360
+          return newAngle
+        })
         animationFrameId = requestAnimationFrame(animatePointer)
       } else {
         setPointerAngle(targetAngle)
@@ -74,53 +205,64 @@ const AllServicesDial: React.FC<AllServicesDialProps> = ({
         cancelAnimationFrame(animationFrameId)
       }
     }
-  }, [selectedSection, sections, pointerAngle])
+  }, [ segments, pointerAngle])
 
   return (
     <div className="relative w-full h-full">
       <svg viewBox="0 0 204 204" className="w-full h-full">
-        <rect x="0" y="0" width="204" height="204" fill="#000080" />
-        {sections.map((section, index) => {
-          const startAngle = index * 90
-          const endAngle = (index + 1) * 90
-          const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1"
-
-          const startX = 102 + 96 * Math.cos((startAngle * Math.PI) / 180)
-          const startY = 102 + 96 * Math.sin((startAngle * Math.PI) / 180)
-          const endX = 102 + 96 * Math.cos((endAngle * Math.PI) / 180)
-          const endY = 102 + 96 * Math.sin((endAngle * Math.PI) / 180)
-
-          const path = `M 102 102 L ${startX} ${startY} A 96 96 0 ${largeArcFlag} 1 ${endX} ${endY} Z`
-
-          return (
-            <g key={index} onClick={() => handleSectionClick(section.name)}>
-              <path
-                d={path}
-                fill="#EDEEF0"
-                stroke="#000000"
-                strokeWidth={showWhiteBorders ? "1" : "3"}
-                cursor="pointer"
-              />
-              <text
-                x={section.textX}
-                y={section.textY}
-                textAnchor="middle"
-                fill={selectedSection === section.name ? "gold" : "black"}
-                fontSize="6"
-                fontFamily="Arial"
-                fontWeight={selectedSection === section.name ? "bold" : "normal"}
-              >
-                {section.name}
-              </text>
-            </g>
-          )
-        })}
+        <rect x="0" y="0" width="204" height="204" fill="#EDEEF0" />
+        {segments.map((segment, index) => (
+          <g key={index} onClick={segment.isBackground ? undefined : () => handleSegmentClick(segment.name, segment.group)}>
+            <path
+              d={segment.path}
+              fill={segment.isBackground ? "#EDEEF8" : (activeSegment === segment.name && activeSegmentGroup === segment.group) ? "#000000" : "#FFFFFF"}
+              stroke="#000000"
+              strokeWidth={showWhiteBorders ? "1" : "3"}
+              cursor={segment.isBackground ? "default" : "pointer"}
+            />
+            <text
+              x={segment.textX}
+              y={segment.textY}
+              textAnchor="middle"
+              fill={activeSegment === segment.name && segment.group === activeSegmentGroup ? "gold" : "black"}
+              fontSize={segment.fontSize ? segment.fontSize : "6"}
+              fontFamily="Arial"
+              fontWeight={segment.isBold ? "bold" : "normal"}
+            >
+              {segment.text ? segment.text[language || "en"] : segment.name}
+            </text>
+          </g>
+        ))}
         <g transform={`rotate(${pointerAngle} 102 102)`}>
           <path 
             d="M 98 90 L 102 81 L 106 90 Z" 
             fill="#FFD700"
           />
         </g>
+        {activeSegment ? (
+          <g onClick={onGoToServices} cursor="pointer">
+            <circle cx="102" cy="102" r="15" fill="#FFD700" opacity="1" />
+            <text
+              x="102"
+              y="102"
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fill="black"
+              fontSize="4"
+              fontWeight="bold"
+            >
+              <tspan x="102" dy="-2" fill="#1663cf">Go To</tspan>
+              <tspan x="102" dy="1.5em" fill="#1663cf">Page</tspan>
+            </text>
+          </g>
+        ) : (
+          <circle 
+            cx="102" 
+            cy="102" 
+            r="15" 
+            fill="#FFD700"
+          />
+        )}
         <g onClick={onLiveHelp} cursor="pointer">
           <rect x={0} y={184} width="102" height="20" fill="#FFD700" />
           <text x={51} y={195} textAnchor="middle" fill="black" fontSize="8">Live Help</text>
@@ -134,5 +276,5 @@ const AllServicesDial: React.FC<AllServicesDialProps> = ({
   )
 }
 
-export default AllServicesDial
+export default AllServiceDial
 

@@ -33,7 +33,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     {
       name: "Male",
       path: "M 0 0 L 101 0 L 101 28 A 75 75 0 0 1 26 101 L 0 101 Z",
-      textX: 28,
+      textX: 35,
       textY: 25,
       group: "male",
       isBackground: true,
@@ -42,7 +42,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     },
     {
       name: "M",
-      textX: 25,
+      textX: 33,
       textY: 45,
       group: "male",
       isBackground:true,
@@ -71,7 +71,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     {
       name: "Female",
       path: "M 204 0 L 103 0 L 103 28 A 75 75 0 0 1 178 101 L 204 101 L 204 0 Z",
-      textX: 175,
+      textX: 170,
       textY: 25,
       group: "female",
       isBackground: true,
@@ -80,7 +80,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     },
     {
       name: "F",
-      textX: 179,
+      textX: 170,
       textY: 45,
       group: "female",
       isBackground: true,
@@ -124,14 +124,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
       group: "other",
       text: {en: "Immigrants",es: "Inmigrantes"}
     },
-    {
-      name: "& Refugees",
-      textX: 83,
-      textY: 153,
-      group: "other",
-      text: {en: "& Refugees", es: "y Refugiados"}
-
-    },
+   
 
 
 
@@ -210,6 +203,20 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
     }
   }, [ segments, pointerAngle])
 
+  const getSegmentText = (segment: any, language: string | undefined) => {
+    const textContent = segment.text ? segment.text[language || "en"] : segment.name;
+    if (segment.name==="Immigrants"){
+      const refugeestxt = language==="en" ? "& Refugees" : "y Refugiados" ;
+      return (
+        <>
+          <tspan>{textContent}</tspan>
+          <tspan dx="-6em" dy="1.2em">{refugeestxt}</tspan>
+        </>
+      );
+    }
+    return <tspan>{textContent}</tspan>;
+  }
+
   return (
     <div className="relative w-full h-full">
       <svg viewBox="0 0 204 204" className="w-full h-full">
@@ -232,7 +239,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
               fontFamily="Arial"
               fontWeight={segment.isBold ? "bold" : "normal"}
             >
-              {segment.text ? segment.text[language || "en"] : segment.name}
+              {getSegmentText(segment, language)}
             </text>
           </g>
         ))}
