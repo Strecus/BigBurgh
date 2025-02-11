@@ -26,132 +26,31 @@ const AllServiceDial: React.FC<AllServiceDialProps> = ({
   const [pointerAngle, setPointerAngle] = useState(0)
   const [activeSegment, setActiveSegment] = useState<string | null>(null)
   const [activeSegmentGroup, setActiveSegmentGroup] = useState<string | null>(null)
+  const [isLiveHelpHovered, setLiveHelpHovered] = useState(false);
+  const [isContactUsHovered, setContactUsHovered] = useState(false);
 
   const segments = [
     {
-      name: "Male",
-      path: "M 0 0 L 101 0 L 101 28 A 75 75 0 0 1 26 101 L 0 101 Z",
-      textX: 28,
-      textY: 25,
-      group: "male",
-      isBackground: true,
-      fontSize: 15,
-      text: { en: "Male", es: "Masculino" }
-    },
-    {
-      name: "M",
-      textX: 25,
-      textY: 45,
-      group: "male",
-      isBackground:true,
-      isBold: true,
-      fontSize: 20
-    },
-    {
-      name: "35+",
-      path: "M 101 101 L 26 101 A 75 75 0 0 1 48 48 L 103 101 Z",
-      angle: 288,
-      textX: 55,
-      textY: 85,
-      isBackground: false,
-      group: "male",
-    },
-    {
-      name: "18-34",
-      path: "M 101 101 L 101 28 A 75 75 0 0 0 48 48 L 103 103 Z",
-      angle: 348,
-      textX: 83,
-      textY: 55,
-      group: "male",
-    },
-
-
-    {
-      name: "Female",
-      path: "M 204 0 L 103 0 L 103 28 A 75 75 0 0 1 178 101 L 204 101 L 204 0 Z",
-      textX: 175,
-      textY: 25,
-      group: "female",
-      isBackground: true,
-      fontSize: 15,
-      text: { en: "Female", es: "Femenino" }
-    },
-    {
-      name: "F",
-      textX: 179,
-      textY: 45,
-      group: "female",
-      isBackground: true,
-      isBold: true,
-      fontSize: 20
-    },
-    {
-      name: "35+",
-      path: "M 103 101 L 156 48 A 75 75 0 0 1 178 101 L 103 101 Z",
-      angle: 67,
-      textX: 145,
-      textY: 85,
-      group: "female",
-    },
-    {
-      name: "18-34",
-      path: "M 103 103 L 103 28 A 75 75 0 0 1 156 48 L 103 103 Z",
-      angle: 22,
-      qAngle: 68,
-      textX: 120,
-      textY: 55,
-      group: "female",
-    },
-
-
-
-    {
-      name: "Vets",
-      path: "M 103 103 L 26 103 A 75 75 0 0 0 46 154 L 103 98 Z",
-      angle: 250,
-      textX: 50,
-      textY: 123,
-      group: "other",
-    },
-    {
-      name: "Immigrants",
-      path: "M 101 103 L 48 157 A 75 75 0 0 0 101 178 L 101 103",
-      angle: 203,
-      textX: 82,
-      textY: 147,
-      group: "other",
-      text: {en: "Immigrants",es: "Inmigrantes"}
-    },
-    {
-      name: "& Refugees",
-      textX: 83,
-      textY: 153,
-      group: "other",
-      text: {en: "& Refugees", es: "y Refugiados"}
-
-    },
-
-
-
-
-
-    {
-      name: "Seniors",
-      path: "M 104 102 L 104 178 A 75 75 0 0 0 156 158 L 104 102 Z",
-      angle: 156,
-      textX: 123,
-      textY: 150,
-      group: "other",
-      text: { en: "Seniors", es: "Mayores" }
-    },
-    {
-      name: "Families",
-      path: "M 101 103 L 178 103 A 75 75 0 0 1 158 155 L 101 96 Z",
-      angle: 112,
+      name: "Health",
+      angle: 60,
       textX: 150,
-      textY: 123,
-      group: "other",
-      text: { en: "Families", es: "Familias" }
+      textY: 70,
+      path: "M 104 102 L 104 76 A 26 26 0 0 1 124.5 113 L 97 97 Z",
+    },
+    {
+      name: "Housing",
+      angle: 300,
+      textX: 50,
+      textY: 150,
+      path: "M 123 116 A 26 26 0 0 1 81 117 L 104 102 Z",
+    },
+    {
+      name: "Basics",
+      angle: 180,
+      textX: 150,
+      textY: 150,
+      path: "M 101 102 L 101 76 A 26 26 0 0 0 79 113 L 100 100 Z"
+      //path: "M 102 102 L 19 150 A 96 96 0 0 1 102 6 Z",
     }
   ]
 
@@ -263,13 +162,37 @@ const AllServiceDial: React.FC<AllServiceDialProps> = ({
             fill="#FFD700"
           />
         )}
-        <g onClick={onLiveHelp} cursor="pointer">
-          <rect x={0} y={184} width="102" height="20" fill="#FFD700" />
-          <text x={51} y={195} textAnchor="middle" fill="black" fontSize="8">Live Help</text>
+        <g 
+          onClick={onLiveHelp} 
+          cursor="pointer" 
+          onMouseEnter={() => setLiveHelpHovered(true)} 
+          onMouseLeave={() => setLiveHelpHovered(false)}
+        >
+          <rect 
+            x={0} 
+            y={184} 
+            width="102" 
+            height="20" 
+            className={isLiveHelpHovered ? "hovered" : ""} 
+            fill={isLiveHelpHovered ? "#1663cf" : "#FFD700"} 
+          />
+          <text x={51} y={195} textAnchor="middle" fill="black" fontSize="8" fontFamily="Helvetica" fontWeight="bold">Live Help</text>
         </g>
-        <g onClick={onContactUs} cursor="pointer">
-          <rect x={102} y={184} width="102" height="20" fill="#FFD700" />
-          <text x={153} y={195} textAnchor="middle" fill="black" fontSize="8">Contact Us</text>
+        <g 
+          onClick={onContactUs} 
+          cursor="pointer" 
+          onMouseEnter={() => setContactUsHovered(true)} 
+          onMouseLeave={() => setContactUsHovered(false)}
+        >
+          <rect 
+            x={103} 
+            y={184} 
+            width="101" 
+            height="20" 
+            className={isContactUsHovered ? "hovered" : ""} 
+            fill={isContactUsHovered ? "#1663cf" : "#FFD700"} 
+          />
+          <text x={153} y={195} textAnchor="middle" fill="black" fontSize="8" fontFamily="Helvetica" fontWeight="bold">Contact Us</text>
         </g>
       </svg>
     </div>

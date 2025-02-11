@@ -33,10 +33,10 @@ export default function Home() {
     if (!forYouSelection) {
       const userConfirmed = window.confirm("Warning! You are currently selecting nothing from the For You dial. Do you want to continue?");
       if (!userConfirmed) {
-        return; // Cancel the action
+        return; // Stay on the For You dial
       }
     }
-    setSelectedDial("allServices")
+    setSelectedDial("allServices") // Proceed to All Services dial
   }
 
   const handleFindInfo = () => {
@@ -88,8 +88,8 @@ export default function Home() {
             <Button
               onClick={() => setSelectedDial("forYou")}
               variant={selectedDial === "forYou" ? "default" : "outline"}
-              className={`text-xs py-1 px-2 rounded-tl-md rounded-br-md ${
-                selectedDial === "forYou" ? "bg-gold text-[#1663cf] font-bold border-2 border-gold" : "bg-[#1663cf] text-gold border-2 border-b-0 border-r-0 border-gold"
+              className={`text-xs py-1 px-2 rounded-tl-md rounded-br-md font-roboto ${
+                selectedDial === "forYou" ? "bg-gold text-[#1663cf] font-bold border-2 border-gold" : "bg-[#1663cf] text-gold border-2 border-b-0 border-r-0"
               }`}
             >
               {language === "es" ? "Para Ti" : "For You"}
@@ -97,7 +97,7 @@ export default function Home() {
             <Button
               onClick={() => handleGoToServices()}
               variant={selectedDial === "allServices" ? "default" : "outline"}
-              className={`text-xs py-1 px-2 rounded-tr-md rounded-bl-md ${
+              className={`text-xs py-1 px-2 rounded-tr-md rounded-bl-md font-roboto ${
                 selectedDial === "allServices" ? "bg-gold text-[#1663cf] font-bold border-2 border-gold" : "bg-[#1663cf] text-gold border-2 border-b-0 border-l-0 border-gold"
               }`}
             >
@@ -105,7 +105,7 @@ export default function Home() {
             </Button>
           </div>
           <div
-            className="aspect-square relative bg-navy-blue border-2 border-t-0 border-gold rounded-b-md overflow-hidden"
+            className="aspect-square relative bg-navy-blue border-2 border-t-0 border-black rounded-b-md overflow-hidden"
             style={{ marginTop: "-2px" }}
           >
             {selectedDial === "forYou" ? (

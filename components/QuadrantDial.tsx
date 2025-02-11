@@ -28,6 +28,8 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
   const [pointerAngle, setPointerAngle] = useState(0)
   const [activeSegment, setActiveSegment] = useState<string | null>(null)
   const [activeSegmentGroup, setActiveSegmentGroup] = useState<string | null>(null)
+  const [isLiveHelpHovered, setLiveHelpHovered] = useState(false);
+  const [isContactUsHovered, setContactUsHovered] = useState(false);
 
   const segments = [
     {
@@ -261,8 +263,8 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
               fontSize="4"
               fontWeight="bold"
             >
-              <tspan x="102" dy="-2" fill="#1663cf">Go To</tspan>
-              <tspan x="102" dy="1.5em" fill="#1663cf">Services</tspan>
+              <tspan x="102" dy="-2" fill="#1663cf">{language === "es" ? "Ir a" : "Go To"}</tspan>
+              <tspan x="102" dy="1.5em" fill="#1663cf">{language === "es" ? "Servicios" : "Services"}</tspan>
             </text>
           </g>
         ) : (
@@ -273,13 +275,37 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
             fill="#FFD700"
           />
         )}
-        <g onClick={onLiveHelp} cursor="pointer">
-          <rect x={0} y={184} width="102" height="20" fill="#FFD700" />
-          <text x={51} y={195} textAnchor="middle" fill="black" fontSize="8">Live Help</text>
+        <g 
+          onClick={onLiveHelp} 
+          cursor="pointer" 
+          onMouseEnter={() => setLiveHelpHovered(true)} 
+          onMouseLeave={() => setLiveHelpHovered(false)}
+        >
+          <rect 
+            x={0} 
+            y={184} 
+            width="102" 
+            height="20" 
+            className={isLiveHelpHovered ? "hovered" : ""} 
+            fill={isLiveHelpHovered ? "#1663cf" : "#FFD700"} 
+          />
+          <text x={51} y={195} textAnchor="middle" fill="black" fontSize="8" fontFamily="Helvetica" fontWeight="bold">Live Help</text>
         </g>
-        <g onClick={onContactUs} cursor="pointer">
-          <rect x={102} y={184} width="102" height="20" fill="#FFD700" />
-          <text x={153} y={195} textAnchor="middle" fill="black" fontSize="8">Contact Us</text>
+        <g 
+          onClick={onContactUs} 
+          cursor="pointer" 
+          onMouseEnter={() => setContactUsHovered(true)} 
+          onMouseLeave={() => setContactUsHovered(false)}
+        >
+          <rect 
+            x={103} 
+            y={184} 
+            width="101" 
+            height="20" 
+            className={isContactUsHovered ? "hovered" : ""} 
+            fill={isContactUsHovered ? "#1663cf" : "#FFD700"} 
+          />
+          <text x={153} y={195} textAnchor="middle" fill="black" fontSize="8" fontFamily="Helvetica" fontWeight="bold">Contact Us</text>
         </g>
       </svg>
     </div>
