@@ -286,6 +286,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
             y={184} 
             width="102" 
             height="20" 
+            rx="5"  // Beveled corners on the right side
             className={isLiveHelpHovered ? "hovered" : ""} 
             fill={isLiveHelpHovered ? "#1663cf" : "#FFD700"} 
           />
@@ -302,6 +303,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
             y={184} 
             width="101" 
             height="20" 
+            rx="5"  // Beveled corners on the right side
             className={isContactUsHovered ? "hovered" : ""} 
             fill={isContactUsHovered ? "#1663cf" : "#FFD700"} 
           />

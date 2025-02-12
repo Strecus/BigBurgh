@@ -31,19 +31,50 @@ const AllServiceDial: React.FC<AllServiceDialProps> = ({
 
   const segments = [
     {
+      name: "Health Background",
+      angle: 60,
+      textX: 150,
+      textY: 70,
+      path: "M 104 102 L 104 27 A 75 75 0 0 1 168 138 L 97 97 Z",
+      
+    },
+    {
       name: "Health",
       angle: 60,
       textX: 150,
       textY: 70,
       path: "M 104 102 L 104 76 A 26 26 0 0 1 124.5 113 L 97 97 Z",
+      isBackground: true,
     },
+
+
+
+
+
     {
       name: "Housing",
       angle: 300,
       textX: 50,
       textY: 150,
-      path: "M 123 116 A 26 26 0 0 1 81 117 L 104 102 Z",
+      path: "M 123 116 A 26 26 0 0 1 80 116 L 101 102 Z",
     },
+    {
+      name: "Housing Background",
+      angle: 300,
+      textX: 50,
+      textY: 150,
+      path: "M 123 116 A 26 26 0 0 1 80 116 L 101 102 Z",
+    },
+
+
+    {
+      name: "Basics Bsckground",
+      angle: 180,
+      textX: 150,
+      textY: 150,
+      path: "M 101 102 L 101 76 A 75 75 0 0 1 168 138 L 97 97 Z"
+    },
+    
     {
       name: "Basics",
       angle: 180,
@@ -51,7 +82,8 @@ const AllServiceDial: React.FC<AllServiceDialProps> = ({
       textY: 150,
       path: "M 101 102 L 101 76 A 26 26 0 0 0 79 113 L 100 100 Z"
       //path: "M 102 102 L 19 150 A 96 96 0 0 1 102 6 Z",
-    }
+    },
+      
   ]
 
   const handleSegmentClick = (segment: string, group: string) => {
