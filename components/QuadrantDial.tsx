@@ -290,7 +290,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
             className={isLiveHelpHovered ? "hovered" : ""} 
             fill={isLiveHelpHovered ? "#1663cf" : "#FFD700"} 
           />
-          <text x={51} y={195} textAnchor="middle" fill="black" fontSize="8" fontFamily="Helvetica" fontWeight="bold">Live Help</text>
+          <text x={51} y={195} textAnchor="middle" fill="black" fontSize="8" fontFamily="Helvetica" fontWeight="bold">{language === "es" ? "Ayuda en Vivo" : "Live Help"}</text>
         </g>
         <g 
           onClick={onContactUs} 
@@ -307,7 +307,7 @@ const QuadrantDial: React.FC<QuadrantDialProps> = ({
             className={isContactUsHovered ? "hovered" : ""} 
             fill={isContactUsHovered ? "#1663cf" : "#FFD700"} 
           />
-          <text x={153} y={195} textAnchor="middle" fill="black" fontSize="8" fontFamily="Helvetica" fontWeight="bold">Contact Us</text>
+          <text x={153} y={195} textAnchor="middle" fill="black" fontSize="8" fontFamily="Helvetica" fontWeight="bold">{language === "es" ? "Contáctanos" : "Contact Us"}</text>
         </g>
       </svg>
     </div>

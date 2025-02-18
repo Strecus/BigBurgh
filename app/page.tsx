@@ -122,6 +122,7 @@ export default function Home() {
               />
             ) : (
               <AllServicesDial
+                language={language}
                 onSelectQuadrant={handleQuadrantSelect}
                 onFindInfo={handleFindInfo}
                 buttonRadius={30}
