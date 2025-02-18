@@ -52,35 +52,37 @@ const AllServiceDial: React.FC<AllServiceDialProps> = ({
 
 
     {
-      name: "Housing",
-      angle: 300,
+      name: "Housing Background",
+      angle: 180,
       textX: 50,
       textY: 150,
-      path: "M 123 116 A 26 26 0 0 1 80 116 L 101 102 Z",
+      path: "M 102 102 L 38 142.5 A 75 75 0 0 0 166 142 L 100 102",
     },
     {
-      name: "Housing Background",
-      angle: 300,
+      name: "Housing",
+      angle: 270,
       textX: 50,
       textY: 150,
       path: "M 123 116 A 26 26 0 0 1 80 116 L 101 102 Z",
+      isBackground: true
     },
+   
 
 
     {
       name: "Basics Bsckground",
-      angle: 180,
+      angle: 300,
       textX: 150,
       textY: 150,
-      path: "M 101 102 L 101 76 A 75 75 0 0 1 168 138 L 97 97 Z"
+      path: "M 101 102 L 101 27 A 75 75 0 0 0 36 138 L 98 102"
     },
-    
     {
       name: "Basics",
       angle: 180,
       textX: 150,
       textY: 150,
-      path: "M 101 102 L 101 76 A 26 26 0 0 0 79 113 L 100 100 Z"
+      path: "M 101 102 L 101 76 A 26 26 0 0 0 79 113 L 100 100 Z",
+      isBackground: true,
       //path: "M 102 102 L 19 150 A 96 96 0 0 1 102 6 Z",
     },
       
@@ -225,6 +227,14 @@ const AllServiceDial: React.FC<AllServiceDialProps> = ({
             fill={isContactUsHovered ? "#1663cf" : "#FFD700"} 
           />
           <text x={153} y={195} textAnchor="middle" fill="black" fontSize="8" fontFamily="Helvetica" fontWeight="bold">Contact Us</text>
+        </g>
+        <g>
+          <path d="M 101 102 L 101 76 A 26 26 0 0 0 79 113 L 100 100 Z" fill="none" id="path-basics" />
+          <text fontSize="6" fontFamily="Arial" fontWeight="normal" dy="-3">
+            <textPath href="#path-basics" startOffset="50%" textAnchor="middle">
+              Basics
+            </textPath>
+          </text>
         </g>
       </svg>
     </div>
