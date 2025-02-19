@@ -311,12 +311,16 @@ const AllServiceDial: React.FC<AllServiceDialProps> = ({
               {language === "es" ? "Expertos" : "Experts"}
             </textPath>
           </text>
-          <text fontSize="6" fontFamily="Arial" fontWeight="normal" dy="-3">
+
+        </g>
+        <defs>
+            <path id="circle-path" d="M 102 87 A 15 15 0 1 1 102 117 A 15 15 0 1 1 102 87" />
+          </defs>
+        <text fontSize="6" fontFamily="Arial" fontWeight="normal" dy="-3">
             <textPath href="#circle-path" startOffset="50%" textAnchor="middle">
               {language === "es" ? "Cama" : "Housing"}
             </textPath>
           </text>
-        </g>
       </svg>
     </div>
   )

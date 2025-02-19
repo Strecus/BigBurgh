@@ -3,7 +3,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'BigBurgh',
-  description: 'Created with v0',
+  description: '',
 }
 
 export default function RootLayout({

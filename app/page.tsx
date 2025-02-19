@@ -66,7 +66,10 @@ export default function Home() {
   return (
     <div className="flex flex-col h-screen" style={{ backgroundColor: "#EDEEF0", color: "gold" }}>
       <header className="bg-white text-[#1663cf] p-2 flex justify-between items-center">
-        <h1 className="text-lg font-bold">BigBurgh</h1>
+        <div className="flex flex-col items-start">
+          <h1 className="text-xl font-bold">BigBurgh</h1>
+          <p style={{ fontSize: '7px' }}>Things are tough? Find good, free stuff here.</p>
+        </div>
         <div className="flex items-center space-x-2">
           <TranslateButton isSpanish={isSpanish} toggleLanguage={toggleLanguage} />
           <Button
