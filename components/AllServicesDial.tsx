@@ -270,16 +270,16 @@ const AllServiceDial: React.FC<AllServiceDialProps> = ({
           cursor="pointer" 
           onMouseEnter={() => setLiveHelpHovered(true)} 
           onMouseLeave={() => setLiveHelpHovered(false)}
-        >
-          <rect 
-            x={0} 
-            y={184} 
-            width="102" 
-            height="20" 
-            className={isLiveHelpHovered ? "hovered" : ""} 
-            fill={isLiveHelpHovered ? "#1663cf" : "#FFD700"} 
-          />
-          <text x={51} y={195} textAnchor="middle" fill="black" fontSize="8" fontFamily="Helvetica" fontWeight="bold">{language === "es" ? "Ayuda en Vivo" : "Live Help"}</text>
+        > <rect 
+        x={0} 
+        y={184} 
+        width="102" 
+        height="20" 
+        rx="5"  // Beveled corners on the right side
+        className={isLiveHelpHovered ? "hovered" : ""} 
+        fill={isLiveHelpHovered ? "#1663cf" : "#FFD700"} 
+      />
+          <text x={51} y={195} textAnchor="middle" fill="black" fontSize="8" fontFamily="Helvetica" fontWeight="bold" rx="5" ry="5">{language === "es" ? "Ayuda en Vivo" : "Live Help"}</text>
         </g>
         <g 
           onClick={onContactUs} 
@@ -287,11 +287,12 @@ const AllServiceDial: React.FC<AllServiceDialProps> = ({
           onMouseEnter={() => setContactUsHovered(true)} 
           onMouseLeave={() => setContactUsHovered(false)}
         >
-          <rect 
+           <rect 
             x={103} 
             y={184} 
             width="101" 
             height="20" 
+            rx="5"  // Beveled corners on the right side
             className={isContactUsHovered ? "hovered" : ""} 
             fill={isContactUsHovered ? "#1663cf" : "#FFD700"} 
           />
